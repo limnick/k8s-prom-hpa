@@ -4,7 +4,7 @@ SHELL=bash
 UNAME := $(shell uname)
 PURPOSE:=metrics
 SERVICE_NAME:=custom-metrics-apiserver
-ALT_NAMES:="custom-metrics-apiserver.monitoring","custom-metrics-apiserver.monitoring.svc"
+ALT_NAMES:="custom-metrics-apiserver.default","custom-metrics-apiserver.default.svc"
 SECRET_FILE:=custom-metrics-api/cm-adapter-serving-certs.yaml
 
 certs: gensecret rmcerts
@@ -24,7 +24,7 @@ gensecret: gencerts
 	@echo "kind: Secret" >> $(SECRET_FILE)
 	@echo "metadata:" >> $(SECRET_FILE)
 	@echo " name: cm-adapter-serving-certs" >> $(SECRET_FILE)
-	@echo " namespace: monitoring" >> $(SECRET_FILE)
+	@echo " namespace: default" >> $(SECRET_FILE)
 	@echo "data:" >> $(SECRET_FILE)
 ifeq ($(UNAME), Darwin)
 	@echo " serving.crt: $$(cat apiserver.pem | base64)" >> $(SECRET_FILE)
